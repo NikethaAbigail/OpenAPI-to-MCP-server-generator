@@ -1,0 +1,26 @@
+# UI
+streamlit>=1.32.0
+
+# Generator
+pyyaml>=6.0
+jsonschema>=4.21.0
+jinja2>=3.1.3
+
+# HTTP
+httpx>=0.27.0
+requests>=2.31.0
+
+# MCP client (agent_chat_ui.py)
+mcp>=1.0.0
+fastmcp>=2.0
+
+# Gemini (agent_chat_ui.py)
+google-genai>=0.8.0
+
+# Async fix for Streamlit (agent_chat_ui.py)
+nest_asyncio>=1.6.0
+
+# Utilities
+python-dotenv>=1.0.0
+pydantic>=2.0
+typing-extensions>=4.0.0

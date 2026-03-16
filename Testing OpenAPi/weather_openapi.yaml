@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: Open-Meteo Weather API
+  version: 1.0.0
+  description: Free weather API - no auth required
+
+servers:
+  - url: https://api.open-meteo.com
+
+paths:
+  /v1/forecast:
+    get:
+      operationId: getForecast
+      summary: Get weather forecast
+      description: Get weather forecast for a location by latitude and longitude
+      parameters:
+        - name: latitude
+          in: query
+          required: true
+          schema:
+            type: number
+            description: Latitude of the location (e.g. 51.5 for London)
+        - name: longitude
+          in: query
+          required: true
+          schema:
+            type: number
+            description: Longitude of the location (e.g. -0.12 for London)
+        - name: current
+          in: query
+          required: false
+          schema:
+            type: string
+            default: temperature_2m,wind_speed_10m,precipitation,weather_code
+            description: Comma-separated list of current weather variables to return
+        - name: hourly
+          in: query
+          required: false
+          schema:
+            type: string
+            description: Comma-separated list of hourly variables (e.g. temperature_2m)
+        - name: daily
+          in: query
+          required: false
+          schema:
+            type: string
+            description: Comma-separated daily variables (e.g. temperature_2m_max)
+        - name: temperature_unit
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [celsius, fahrenheit]
+            default: celsius
+        - name: wind_speed_unit
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [kmh, ms, mph, kn]
+            default: kmh
+        - name: timezone
+          in: query
+          required: false
+          schema:
+            type: string
+            default: auto
+            description: Timezone name (e.g. Europe/London) or "auto"
+        - name: forecast_days
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 7
+            minimum: 1
+            maximum: 16
+      responses:
+        '200':
+          description: Weather forecast data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  latitude:
+                    type: number
+                  longitude:
+                    type: number
+                  timezone:
+                    type: string
+                  current:
+                    type: object
+                    properties:
+                      temperature_2m:
+                        type: number
+                      wind_speed_10m:
+                        type: number
+                      precipitation:
+                        type: number
+                      weather_code:
+                        type: integer
